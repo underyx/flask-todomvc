@@ -56,3 +56,5 @@ tools:
     ignore:
     - use-timeout
     run: true
+  nonexistant:
+    run: true
