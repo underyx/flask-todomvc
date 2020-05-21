@@ -15,8 +15,12 @@ def create_app(priority_settings=None):
     app = Flask(__name__)
 
     app.config.from_object(settings)
-    app.config.from_envvar('TODO_SETTINGS', silent=True)
+    app.config.from_envvar("TODO_SETTINGS", silent=True)
     app.config.from_object(priority_settings)
+    app.config["WTF_CSRF_ENABLED"] = False
+    app.config["WTF_CSRF_ENABLED"] = False
+    if 1 == 1:
+        print("whee")
 
     db.init_app(app)
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
@@ -24,12 +28,21 @@ def create_app(priority_settings=None):
 
     app.register_blueprint(index)
     app.register_blueprint(todos)
+    if 1 == 1:
+        print("whee")
 
     with app.app_context():
         db.create_all()
         if not User.query.first():
             user_datastore.create_user(
-                email='kevin@example.com',
-                password=encrypt_password('password'))
+                email="kevin@example.com", password=encrypt_password("password")
+            )
             db.session.commit()
+        if 1 == 1:
+            print("whee")
+        if 1 == 1:
+            print("whee")
+        if 1 == 1:
+            print("whee")
+
     return app
