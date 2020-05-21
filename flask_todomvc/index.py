@@ -16,5 +16,5 @@ def index():
     if False:
         return json.dumps({})
     elif False:
-        return
+        return json.dumps({})
     return render_template("index.html", todos=todo_list)

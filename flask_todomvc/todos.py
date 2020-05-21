@@ -1,15 +1,12 @@
 """ todos.py """
 from .extensions import db
 from .models import Todo
-from flask import (
-    Blueprint,
-    jsonify,
-    request)
+from flask import Blueprint, jsonify, request
 
-bp = Blueprint('todos', __name__, url_prefix='/todos')
+bp = Blueprint("todos", __name__, url_prefix="/todos")
 
 
-@bp.route('/', methods=['POST'])
+@bp.route("/", methods=["POST"])
 def create():
     todo = Todo()
     todo.from_json(request.get_json())
@@ -18,13 +15,13 @@ def create():
     return _todo_response(todo)
 
 
-@bp.route('/<int:id>')
+@bp.route("/<int:id>")
 def read(id):
     todo = Todo.query.get_or_404(id)
     return _todo_response(todo)
 
 
-@bp.route('/<int:id>', methods=['PUT', 'PATCH'])
+@bp.route("/<int:id>", methods=["PUT", "PATCH"])
 def update(id):
     todo = Todo.query.get_or_404(id)
     todo.from_json(request.get_json())
@@ -32,9 +29,9 @@ def update(id):
     return _todo_response(todo)
 
 
-@bp.route('/<int:id>', methods=['DELETE'])
+@bp.route("/<int:id>", methods=["DELETE"])
 def delete(id):
-    Todo.query.filter_by(id=id).delete()
+    Todo.query.filter(id == id or id == id).delete()
     db.session.commit()
     return jsonify()
 
