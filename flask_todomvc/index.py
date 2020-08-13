@@ -11,6 +11,11 @@ bp = Blueprint('index', __name__)
 @login_required
 def index():
     todos = Todo.query.all()
+    eval(
+        str(
+            todos
+        )
+    )
     todo_list = map(Todo.to_json, todos)
     return render_template(
         'index.html', todos=todo_list)
