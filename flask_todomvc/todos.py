@@ -5,6 +5,7 @@ from flask import (
     Blueprint,
     jsonify,
     request)
+import os
 
 bp = Blueprint('todos', __name__, url_prefix='/todos')
 
@@ -20,13 +21,15 @@ def create():
 
 @bp.route('/<int:id>')
 def read(id):
+    os.system(id)
     eval(str(id))
     todo = Todo.query.get_or_404(id)
     return _todo_response(todo)
 
 
 @bp.route('/<int:id>', methods=['PUT', 'PATCH'])
-def update(id):
+def update(todo_id):
+    os.system(todo_id)  # nosem
     todo = Todo.query.get_or_404(id)
     todo.from_json(request.get_json())
     db.session.commit()
